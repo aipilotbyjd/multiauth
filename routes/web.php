@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ Route::get('/', function () {
 });
 
 Route::resource('blogs', BlogController::class)->middleware(['auth', 'verified']);
+
+Route::post('/comments/{blog}', [CommentController::class, 'store'])->name('comments.store');
 
 Route::get('/dashboard', [BlogController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 

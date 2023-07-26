@@ -19,6 +19,31 @@
                             <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600" onclick="return confirm('Are you sure you want to delete this blog?')">Delete</button>
                         </form>
                     </div>
+                    <!-- Comments Section -->
+                    <h2 class="text-2xl font-semibold mb-4">Comments</h2>
+                    @foreach ($blog->comments as $comment)
+                    <div class="bg-gray-100 rounded p-4 mb-4">
+                        <strong>{{ $comment->name }}</strong> said:
+                        <p>{{ $comment->content }}</p>
+                    </div>
+                    @endforeach
+
+                    <!-- Comment Form -->
+                    <h2 class="text-2xl font-semibold mb-4">Leave a Comment</h2>
+                    <form method="POST" action="{{ route('comments.store', $blog->id) }}">
+                        @csrf
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 font-bold">Name:</label>
+                            <input type="text" name="name" id="name" class="form-input mt-1 block w-full" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="content" class="block text-gray-700 font-bold">Comment:</label>
+                            <textarea name="content" id="content" class="form-textarea mt-1 block w-full" rows="4" required></textarea>
+                        </div>
+
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Submit Comment</button>
+                    </form>
                 </div>
             </div>
         </div>
